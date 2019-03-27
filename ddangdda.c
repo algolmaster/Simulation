@@ -1,27 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 
-#pragma warning(disable:4996)
-
-#define NO 0
-#define YES 1
-
-int cache[101][101];
-int board[101][101];
+int board[101][101]; //실제 보드판
+int path[101][101]; //갈 수 있는지의 여부를 판단하는 판
 int n;
 
-int canReach(int y, int x) {
+int cango(int y, int x) {
 	if ((y > n - 1) || (x > n - 1)) {
-		return NO;
+		return 0;
 	}
 
-	int& ret = cache[y][x];
-	if (ret != -1) {
-		return ret;
+	int check = path[y][x];
+	if (check != -1) {
+		return check;
 	}
 
 	int amount = board[y][x];
-	return ret = (canReach(y + amount, x) || canReach(y, x + amount));
+	return check = (cango(y + amount, x) || cango(y, x + amount)); //한 곳이라도 갈 수 있으면 
 }
 
 int main() {
@@ -36,10 +31,11 @@ int main() {
 			}
 		}
 
-		memset(cache, -1, sizeof(cache));
-		cache[n - 1][n - 1] = YES;
-		int ret = canReach(0, 0);
-		if (ret == YES) {
+		memset(path, -1, sizeof(path)); //초기는 -1로 세팅
+
+		path[n - 1][n - 1] = 1; //맨 마지막은 성공이므로 1로 세팅
+		int check = cango(0, 0); //맨 처음부터 갈수 있는지 성공
+		if (check == 1) {
 			printf("YES\n");
 		}
 		else {
