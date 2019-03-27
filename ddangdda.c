@@ -21,13 +21,13 @@ int cango(int y, int x) {
 
 int main() {
 	int C;
-	scanf("%d", &C);
+	scanf_s("%d", &C);
 
 	for (int i = 0; i < C; i++) {
-		scanf("%d", &n);
+		scanf_s("%d", &n);
 		for (int j = 0; j < n; j++) {
 			for (int k = 0; k < n; k++) {
-				scanf("%d", &board[j][k]);
+				scanf_s("%d", &board[j][k]);
 			}
 		}
 
@@ -40,6 +40,12 @@ int main() {
 		}
 		else {
 			printf("NO\n");
+		}
+		for (int j = 0; j < n; j++) {
+			for (int k = 0; k < n; k++) {
+				printf("%d ", path[j][k]);
+			}
+			printf("\n");
 		}
 	}
 
